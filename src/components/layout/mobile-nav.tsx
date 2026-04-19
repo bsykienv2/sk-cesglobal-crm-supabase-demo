@@ -9,6 +9,7 @@ const ITEMS = [
   { href: "/leads", icon: "group", label: "Leads" },
   { href: "/calendar", icon: "calendar_today", label: "Events" },
   { href: "/reports", icon: "analytics", label: "Reports" },
+  { href: "/help", icon: "help_outline", label: "Help" },
 ];
 
 export function MobileNav() {

@@ -23,10 +23,11 @@ const config: Config = {
         "ring-warm": "#d1cfc5",
         "focus-blue": "#3898ec",
         "error-crimson": "#b53333",
+        "pale-cyan": "#CFECF3",
       },
       fontFamily: {
-        headline: ["Newsreader", "Lora", "Georgia", "serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        headline: ["Montserrat", "sans-serif"],
+        body: ["Montserrat", "sans-serif"],
       },
       borderRadius: {
         pill: "9999px",

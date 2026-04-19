@@ -12,7 +12,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full py-3 rounded-full bg-terracotta text-ivory font-medium text-sm shadow-sm hover:opacity-95 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+      className="w-full py-3.5 rounded-full bg-terracotta text-ivory font-bold text-[15px] shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
     >
       {pending ? (
         <>

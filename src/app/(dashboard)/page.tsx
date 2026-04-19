@@ -66,6 +66,7 @@ export default async function DashboardPage() {
             hint={
               statusCounts.new > 0 ? "Cần liên hệ sớm" : "Chưa có lead mới"
             }
+            href="/leads?status=new"
           />
           <StatCard
             label="Đang tư vấn"
@@ -77,6 +78,7 @@ export default async function DashboardPage() {
                 ? `${statusCounts.consulting} lead đang theo đuổi`
                 : "Không có phiên tư vấn"
             }
+            href="/leads?status=consulting"
           />
           <StatCard
             label="Đã mua"
@@ -84,6 +86,7 @@ export default async function DashboardPage() {
             icon="shopping_cart_checkout"
             tone="success"
             hint={statusCounts.won > 0 ? "Ghi nhận thành công" : "—"}
+            href="/leads?status=won"
           />
           <StatCard
             label="Từ chối"
@@ -95,6 +98,7 @@ export default async function DashboardPage() {
                 ? `${statusCounts.rejected} lead đã đóng`
                 : "Chưa có từ chối"
             }
+            href="/leads?status=rejected"
           />
         </div>
 

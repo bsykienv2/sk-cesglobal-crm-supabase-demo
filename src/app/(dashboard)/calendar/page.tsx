@@ -2,6 +2,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { format, isToday, isYesterday } from "date-fns";
 import { vi } from "date-fns/locale";
 import { GlobalInteractionModal } from "@/components/calendar/global-interaction-modal";
+import { EditInteractionModal } from "@/components/interactions/edit-interaction-modal";
+import { DeleteInteractionButton } from "@/components/interactions/delete-interaction-button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -177,7 +179,11 @@ export default async function CalendarPage(props: {
                         </div>
                       </div>
 
-                      <div className="flex-1 bg-white border border-border-cream rounded-3xl p-5 hover:shadow-md hover:border-focus-blue/50 transition-all">
+                      <div className="flex-1 bg-white border border-border-cream rounded-3xl p-5 hover:shadow-md hover:border-focus-blue/50 transition-all relative group/card">
+                        <div className="absolute top-4 right-4 flex gap-1 opacity-100 sm:opacity-0 group-hover/card:opacity-100 transition-opacity z-10 bg-white/90 backdrop-blur rounded-xl p-0.5 shadow-sm border border-border-cream">
+                          <EditInteractionModal interaction={event} leads={leads} />
+                          <DeleteInteractionButton id={event.id!} leadId={event.lead_id} />
+                        </div>
                         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                           <div>
                             <div className="flex items-center gap-2 mb-2">
@@ -218,7 +224,11 @@ export default async function CalendarPage(props: {
              const isMeeting = event.type === "meeting";
              const lead: any = event.leads;
              return (
-               <div key={event.id} className="bg-white border border-border-cream shadow-sm rounded-3xl p-6 hover:shadow-md hover:border-focus-blue/40 transition-all flex flex-col h-full">
+               <div key={event.id} className="bg-white border border-border-cream shadow-sm rounded-3xl p-6 hover:shadow-md hover:border-focus-blue/40 transition-all flex flex-col h-full relative group/card">
+                  <div className="absolute top-4 right-4 flex gap-1 opacity-100 sm:opacity-0 group-hover/card:opacity-100 transition-opacity z-10 bg-white/90 backdrop-blur rounded-xl p-0.5 shadow-sm border border-border-cream">
+                    <EditInteractionModal interaction={event} leads={leads} />
+                    <DeleteInteractionButton id={event.id!} leadId={event.lead_id} />
+                  </div>
                   <div className="flex justify-between items-start mb-4">
                     <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full flex items-center gap-1 ${isMeeting ? "bg-orange-100/50 text-orange-700" : "bg-green-100/50 text-green-700"}`}>
                        <span className="material-symbols-outlined !text-[14px]">
@@ -265,6 +275,7 @@ export default async function CalendarPage(props: {
                   <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-stone-gray min-w-[200px]">Khách hàng</th>
                   <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-stone-gray min-w-[300px]">Sự kiện</th>
                   <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-stone-gray whitespace-nowrap">Thời lượng</th>
+                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-stone-gray whitespace-nowrap text-right">Hành động</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-cream">
@@ -301,6 +312,12 @@ export default async function CalendarPage(props: {
                         ) : (
                           <span className="text-stone-gray text-sm">-</span>
                         )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                        <div className="flex justify-end gap-1 relative">
+                          <EditInteractionModal interaction={event} leads={leads} />
+                          <DeleteInteractionButton id={event.id!} leadId={event.lead_id} />
+                        </div>
                       </td>
                     </tr>
                   );

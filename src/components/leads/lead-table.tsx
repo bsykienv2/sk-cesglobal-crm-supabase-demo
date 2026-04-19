@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Lead } from "@/lib/types/database";
 import { LEAD_SOURCE_LABELS } from "@/lib/constants";
 import { LeadStatusBadge } from "@/components/leads/lead-status-badge";
+import { DeleteLeadButton } from "@/components/leads/delete-lead-button";
 import { getInitials, formatDateVn } from "@/lib/utils";
 
 const AVATAR_COLORS = [
@@ -136,6 +137,7 @@ export function LeadTable({ leads }: { leads: Lead[] }) {
                       edit
                     </span>
                   </Link>
+                  <DeleteLeadButton leadId={lead.id!} iconOnly />
                 </div>
               </td>
             </tr>

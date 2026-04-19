@@ -5,6 +5,9 @@ import {
 } from "@/lib/constants";
 import { relativeDateVn } from "@/lib/utils";
 
+import { EditInteractionModal } from "@/components/interactions/edit-interaction-modal";
+import { DeleteInteractionButton } from "@/components/interactions/delete-interaction-button";
+
 export function InteractionTimeline({
   interactions,
 }: {
@@ -36,9 +39,13 @@ export function InteractionTimeline({
               {INTERACTION_TYPE_ICONS[it.type]}
             </span>
           </div>
-          <div className="bg-ivory ring-shadow rounded-2xl p-6">
+          <div className="bg-ivory ring-shadow rounded-2xl p-6 relative group/timeline">
+            <div className="absolute top-4 right-4 flex gap-1 opacity-0 group-hover/timeline:opacity-100 transition-opacity z-10 bg-ivory/90 backdrop-blur rounded-xl p-0.5 shadow-sm border border-border-cream/50">
+               <EditInteractionModal interaction={it} />
+               <DeleteInteractionButton id={it.id!} leadId={it.lead_id} />
+             </div>
             <div className="flex justify-between items-start mb-3 gap-4">
-              <div className="min-w-0">
+              <div className="min-w-0 pr-16">
                 <h4 className="font-medium text-near-black">{it.title}</h4>
                 <p className="text-[12px] text-stone-gray mt-0.5">
                   <span className="inline-block px-2 py-0.5 bg-parchment rounded-full text-[10px] uppercase tracking-widest font-semibold text-terracotta mr-2">

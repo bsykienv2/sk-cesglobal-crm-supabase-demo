@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { deleteLeadAction } from "@/app/(dashboard)/leads/actions";
 
-export function DeleteLeadButton({ leadId }: { leadId: string }) {
+export function DeleteLeadButton({ leadId, iconOnly }: { leadId: string; iconOnly?: boolean }) {
   const [confirming, setConfirming] = useState(false);
   const [pending, startTransition] = useTransition();
 
@@ -12,10 +12,15 @@ export function DeleteLeadButton({ leadId }: { leadId: string }) {
       <button
         type="button"
         onClick={() => setConfirming(true)}
-        className="px-5 py-2 border border-error-crimson/20 text-error-crimson rounded-full text-[14px] font-medium hover:bg-error-crimson/5 transition-all flex items-center gap-2"
+        title="Xóa"
+        className={
+          iconOnly
+            ? "p-1.5 text-stone-gray hover:text-error-crimson hover:bg-error-crimson/5 rounded-lg transition-colors flex items-center"
+            : "px-5 py-2 border border-error-crimson/20 text-error-crimson rounded-full text-[14px] font-medium hover:bg-error-crimson/5 transition-all flex items-center gap-2"
+        }
       >
-        <span className="material-symbols-outlined text-[18px]">delete</span>
-        Xóa
+        <span className={`material-symbols-outlined ${iconOnly ? "text-[20px]" : "text-[18px]"}`}>delete</span>
+        {!iconOnly && "Xóa"}
       </button>
     );
   }

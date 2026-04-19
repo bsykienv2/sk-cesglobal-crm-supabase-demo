@@ -6,7 +6,7 @@ import type { Database } from "@/lib/types/database";
  * Refresh auth session on every request + guard protected routes.
  * Unauthenticated users hitting any non-public route get redirected to /login.
  */
-const PUBLIC_ROUTES = ["/login", "/auth"];
+const PUBLIC_ROUTES = ["/login", "/register", "/auth"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });

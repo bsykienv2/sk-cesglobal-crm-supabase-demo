@@ -31,6 +31,39 @@ export async function signInAction(
   redirect(next && next.startsWith("/") ? next : "/");
 }
 
+export async function signUpAction(
+  _prev: LoginState,
+  formData: FormData,
+): Promise<LoginState> {
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+  const fullName = String(formData.get("fullName") ?? "").trim();
+  const origin = String(formData.get("origin") ?? "");
+
+  if (!email || !password || !fullName) {
+    return { error: "Vui lòng nhập đầy đủ thông tin." };
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        full_name: fullName,
+      },
+      emailRedirectTo: `${origin}/auth/callback`,
+    },
+  });
+
+  if (error) {
+    return { error: `Lỗi đăng ký: ${error.message}` };
+  }
+
+  revalidatePath("/", "layout");
+  return { error: "Đăng ký thành công! Vui lòng kiểm tra email để xác nhận." };
+}
+
 export async function signOutAction() {
   const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
